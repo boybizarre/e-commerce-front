@@ -1,8 +1,16 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import styled from 'styled-components';
 
+import Button from './Button';
+import ButtonLink from './ButtonLink';
 import Center from './Center';
+import CartIcon from './icons/CartIcon';
+
+import { ProductType, CartContextType } from '../types';
+import { useContext } from 'react';
+import { CartContext } from './CartContext';
 
 const Bg = styled.div`
   background-color: #222;
@@ -20,11 +28,11 @@ const Desc = styled.p`
   font-size: 0.8rem;
 `;
 
-const Wrapper = styled.div`
+const ColumnsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-columns: 1.1fr 0.9fr;
   gap: 40px;
-  img{
+  img {
     max-width: 100%;
   }
 `;
@@ -32,22 +40,43 @@ const Wrapper = styled.div`
 const Column = styled.div`
   display: flex;
   align-items: center;
-` 
+`;
 
-const Featured = () => {
+const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+`;
+
+interface FeaturedProps {
+  product: ProductType;
+}
+
+const Featured: React.FC<FeaturedProps> = ({ product }) => {
+  // consume the values from react context here
+  const { addProduct } = useContext(CartContext) as CartContextType;
+  
+  const addFeaturedToCart = () => {
+    addProduct(product._id);
+  };
+
   return (
     <Bg>
       <Center>
-        <Wrapper>
+        <ColumnsWrapper>
           <Column>
             <div>
-              <Title>Pro Anywhere</Title>
-              <Desc>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae
-                necessitatibus inventore velit distinctio aliquid laudantium fuga
-                et reiciendis quae officia, atque ipsam illum culpa. Iste
-                voluptatem corrupti possimus magni vel?
-              </Desc>
+              <Title>{product.title}</Title>
+              <Desc>{product.description}</Desc>
+              <ButtonsWrapper>
+                <ButtonLink href={`/products/${product._id}`} $outline $white>
+                  Read more
+                </ButtonLink>
+                <Button $white onClick={addFeaturedToCart}>
+                  <CartIcon />
+                  Add to cart
+                </Button>
+              </ButtonsWrapper>
             </div>
           </Column>
           <Column>
@@ -56,7 +85,7 @@ const Featured = () => {
               alt=''
             />
           </Column>
-        </Wrapper>
+        </ColumnsWrapper>
       </Center>
     </Bg>
   );

@@ -1,9 +1,14 @@
 'use client';
 
+// components
 import Center from './Center';
 
 import Link from 'next/link';
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { CartContextType } from '../types';
+
+import { CartContext } from './CartContext';
 
 const StyledHeader = styled.header`
   background-color: #222;
@@ -30,6 +35,9 @@ const NavLink = styled(Link)`
 `;
 
 const Header = () => {
+  // consume the values from react context here
+  const { cartProducts } = useContext(CartContext) as CartContextType;
+
   return (
     <StyledHeader>
       <Center>
@@ -40,7 +48,7 @@ const Header = () => {
             <NavLink href={'/products'}>All Products</NavLink>
             <NavLink href={'/categories'}>Categories</NavLink>
             <NavLink href={'/account'}>Account</NavLink>
-            <NavLink href={'/cart'}>Cart(0)</NavLink>
+            <NavLink href={'/cart'}>Cart({cartProducts.length})</NavLink>
           </StyledNav>
         </Wrapper>
       </Center>
