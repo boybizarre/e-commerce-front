@@ -4,18 +4,11 @@ import { ProductType } from '../types';
 
 // components
 import Center from './Center';
-import ProductBox from './ProductBox';
+import ProductsGrid from './ProductsGrid';
 
 interface NewProductsProps {
   products: ProductType[];
 }
-
-const ProductsGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 20px;
-  padding-top: 20px;
-`;
 
 const Title = styled.h2`
   font-size: 2rem;
@@ -27,12 +20,7 @@ const NewProducts: React.FC<NewProductsProps> = ({ products }) => {
   return (
     <Center>
       <Title>New Arrivals</Title>
-      <ProductsGrid>
-        {products?.length > 0 &&
-          products.map((product: ProductType) => (
-            <ProductBox key={product._id} {...product} />
-          ))}
-      </ProductsGrid>
+      <ProductsGrid products={products} />
     </Center>
   );
 };

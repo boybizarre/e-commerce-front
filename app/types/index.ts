@@ -41,7 +41,9 @@ export type newPropertyType = {
 };
 
 export type CartContextType = {
-  cartProducts: any;
+  cartProducts: string[];
   setCartProducts: (product: any) => void;
-  addProduct: (product: any) => void;
+  addProduct: (product: string) => void;
+  removeProduct: (product: string) => void;
+  clearCart: () => void;
 };

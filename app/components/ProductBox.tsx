@@ -52,7 +52,10 @@ const Title = styled(Link)`
 `;
 
 const ProductInfoBox = styled.div`
-  margin-top: 10px;
+  margin-top: 15px;
+  @media screen and (min-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 const PriceRow = styled.div`
@@ -63,10 +66,12 @@ const PriceRow = styled.div`
 `;
 
 const Price = styled.div`
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
+  @media screen and (min-width: 768px) {
+    font-size: 1.2rem;
+  }
 `;
-
 
 const ProductBox: React.FC<ProductBoxProps> = ({
   _id,
@@ -75,18 +80,19 @@ const ProductBox: React.FC<ProductBoxProps> = ({
   price,
   images,
 }) => {
-
   const router = useRouter();
 
-  const url = `/product/${_id}`;
+  const url = `/products/${_id}`;
 
   const { addProduct } = useContext(CartContext) as CartContextType;
 
   return (
     <ProductWrapper>
-      <WhiteBox  onClick={() => {
-        router.push(url);
-      }}>
+      <WhiteBox
+        onClick={() => {
+          router.push(url);
+        }}
+      >
         <div>
           <img src={images.length > 0 ? images[0] : ''} alt='' />
         </div>

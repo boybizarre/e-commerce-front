@@ -5,11 +5,14 @@ import { primary } from '../lib/colors';
 
 interface ButtonProps {
   children: React.ReactNode,
+  type?: 'button' | 'submit'| 'reset' | undefined,
   $primary?: boolean,
   $outline?: boolean,
   $white?: boolean,
+  $block?: boolean,
+  $black?: boolean,
   $size?: string,
-  onClick?: () => void,
+  onClick?: (e: any) => void,
 }
 
 export const ButtonStyle = css`
@@ -27,6 +30,12 @@ export const ButtonStyle = css`
     height: 16px;
     margin-right: 5px;
   }
+
+  ${(props: any) => props.$block && css`
+    display: block;
+    width: 100%;
+  `}
+
   ${(props: any) =>
     props.$white &&
     !props.$outline &&
@@ -42,6 +51,25 @@ export const ButtonStyle = css`
       color: #fff;
       border: 1px solid #fff;
     `}
+
+  ${(props: any) =>
+    props.$black &&
+    !props.$outline &&
+    css`
+      background-color: #000;
+      color: #fff;
+    `}
+
+    
+  ${(props: any) =>
+    props.$black &&
+    props.$outline &&
+    css`
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
+    `}
+    
   ${(props: any) =>
     props.$primary &&
     !props.$outline &&
